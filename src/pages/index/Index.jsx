@@ -82,8 +82,9 @@ const Index = () => {
             <ConfirmationModal
                 showModal={showModal}
                 setShowModal={setShowModal}
-                width="500"
                 textContent="Employee created!"
+                btnContent="Done"
+                clickClose={false}
             />
         </>
     );

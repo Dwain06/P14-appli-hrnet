@@ -1,18 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./confirmationModal.css";
 
 const ConfirmationModal = ({
     showModal,
     setShowModal,
-    btnContent,
-    textContent,
+    btnContent = "close",
+    textContent = "Insert your text here with 'textContent' prop",
     fadeinDuration = 200,
     fadeinDelay = 0,
     fadeoutDuration = 200,
     fadeoutDelay = 0,
+    escapeClose= true,
+    clickClose= true
 }) => {
-
     const [fadeAnimation, setFadeAnimation] = useState(true);
+
+    useEffect(() => {
+        document.onkeydown = (e) => {
+            if (e.key === "Escape" && showModal && escapeClose) {
+                handleClose();
+            }
+        };
+    });
+    // useEffect(() => {
+    //     document.querySelector(".confirmation-modal").onclick = (e) => {
+    //         console.log(e);
+    //     };
+    // }, [showModal]);
 
     const confirmationModalFadein = {
         animation: `${fadeinDuration}ms ease ${fadeinDelay}ms fadein forwards`,
@@ -29,10 +43,15 @@ const ConfirmationModal = ({
         }, fadeoutDelay + 200);
     };
 
+    const handleClickClose = (e) => {
+        if (e.target === e.currentTarget && clickClose) handleClose();
+    };
+
     if (showModal) {
         return (
             <div
                 className="confirmation-modal"
+                onClick={(e) => handleClickClose(e)}
                 style={
                     fadeAnimation
                         ? confirmationModalFadein
@@ -40,16 +59,12 @@ const ConfirmationModal = ({
                 }
             >
                 <div className="confirmation-modal__msg">
-                    <p>
-                        {textContent
-                            ? textContent
-                            : "Insert your text here with 'textContent' prop"}
-                    </p>
+                    <p>{textContent}</p>
                     <button
                         className="confirmation-modal__msg--close"
                         onClick={handleClose}
                     >
-                        {btnContent ? btnContent : "Close"}
+                        {btnContent}
                     </button>
                 </div>
             </div>
