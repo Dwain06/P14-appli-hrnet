@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
+import Header from "../../components/header/Header";
 
 // Import components
-import MainNav from "../../components/MainNav";
+import MainNav from "../../components/mainNav/MainNav";
 
 const Login = () => {
     useEffect(() => {
@@ -10,6 +11,7 @@ const Login = () => {
 
     return (
         <>
+            <Header />
             <MainNav />
             <div id="employee-div" className="container">
                 <h1>Current Employees</h1>

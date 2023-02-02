@@ -22,11 +22,6 @@ const ConfirmationModal = ({
             }
         };
     });
-    // useEffect(() => {
-    //     document.querySelector(".confirmation-modal").onclick = (e) => {
-    //         console.log(e);
-    //     };
-    // }, [showModal]);
 
     const confirmationModalFadein = {
         animation: `${fadeinDuration}ms ease ${fadeinDelay}ms fadein forwards`,

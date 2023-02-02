@@ -1,5 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background: rgb(240, 240, 240);
 }
 
 .title {
@@ -26,14 +28,5 @@ label {
     margin-top: 10px;
 }
 
-.main-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    max-width: 90vw;
-    margin: auto;
-}
-
-.main-nav-item {
-    margin-left: 20px;
-}
+$color-primary-light : #93ad18;
+$color-primary-dark : #577000;
