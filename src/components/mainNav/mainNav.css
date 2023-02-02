@@ -1,0 +1,29 @@
+.main-nav {
+    background: rgb(240, 240, 240);
+    padding-top: 50px;
+    padding-bottom: 9px;
+}
+
+.main-nav--container{
+    max-width: 1200px;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin: auto;
+}
+
+.main-nav-item {
+    margin-right: 15px;
+    border-radius: 15px 15px 0 0;
+    border-top: 5px solid #577000;
+    background: rgb(218, 218, 218);
+    color: #577000;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-active {
+    background: #fff;
+    border-top: 5px solid #93ad18;
+    color: #93ad18;
+}
