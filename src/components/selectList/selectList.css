@@ -7,16 +7,26 @@
     text-align: center;
     cursor: pointer;
     font-size: 16px;
-    background-color: grey;
-    color: aliceblue;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(214, 214, 214);
+    color: #577000;
+    /* color: rgb(104, 136, 165); */
     border-radius: 5px;
+    
 }
+
+#select-list:focus {
+    outline : 1px solid #577000;
+    /* outline : 1px solid rgb(104, 136, 165); */
+    
+}
+
 #select-list::-webkit-scrollbar {
 	width: 8px;
     border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(61, 151, 88, 0.3);
 }
 #select-list::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: #577000;
 }

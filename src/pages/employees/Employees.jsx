@@ -13,10 +13,10 @@ const Login = () => {
         <>
             <Header />
             <MainNav />
-            <div id="employee-div" className="container">
-                <h1>Current Employees</h1>
-                <table id="employee-table" className="display" />
-                <a href="index.html">Home</a>
+            <div className="employees-list">
+                <div className="employees-list--container">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos deleniti ea ducimus neque eius soluta quisquam? Dolorem obcaecati nostrum incidunt excepturi, ab necessitatibus amet suscipit accusamus voluptates expedita. Dolorem, sit!</p>
+                </div>
             </div>
         </>
     );
