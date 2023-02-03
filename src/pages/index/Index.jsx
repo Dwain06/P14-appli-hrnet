@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
 // Import components
@@ -11,46 +11,160 @@ import { department } from "../../utils/departmentList";
 import Header from "../../components/header/Header";
 
 const Index = () => {
-    const [showModal, setShowModal] = useState(false);
+    // General datas
+    const [employeesList, setEmployeesList] = useState();
 
+    // Components datas
+    const [showModal, setShowModal] = useState(false);
     const [selectedItemState, setSelectedItemState] = useState();
     const [selectedItemDpt, setSelectedItemDpt] = useState();
 
     useEffect(() => {
         document.title = "HRnet";
+
+        // Get employees from local storage, it could be configured for a future API development
+        const getEmployees = () => {
+            if (localStorage.getItem("employees")) {
+                setEmployeesList(JSON.parse(localStorage.getItem("employees")));
+            } else setEmployeesList([]);
+        };
+        getEmployees();
     }, []);
 
+    useEffect(() => {
+        // Save store on local storage, it could be PUT in a future API development
+        if (employeesList)
+            localStorage.setItem("employees", JSON.stringify(employeesList));
+    }, [employeesList]);
+
+    const inputFirstName = useRef();
+    const inputLastName = useRef();
+    const inputDateOfBirth = useRef();
+    const inputStartDate = useRef();
+    const inputStreet = useRef();
+    const inputCity = useRef();
+    const inputZipCode = useRef();
+
+    const throwInputError = (parentNodeId, message) => {
+        // Checking if error already exist
+        if (document.querySelector("#" + parentNodeId + " + .wrong-login")) {
+            const span = document.querySelector(
+                "#" + parentNodeId + " + .wrong-login"
+            );
+            span.innerText = message;
+        } else {
+            const span = document.createElement("span");
+            span.classList.add("wrong-login");
+            span.innerText = message;
+            const parentNode = document.getElementById(parentNodeId);
+            parentNode.insertAdjacentElement("afterend", span);
+        }
+        document.querySelector("input#" + parentNodeId)?.classList.add("error");
+    };
+
+    const cancelInputError = (parentNodeId) => {
+        const span = document.querySelector(
+            "#" + parentNodeId + " + .wrong-login"
+        );
+        if (span) span.innerText = "";
+    };
+
+    const removeError = (e) => {
+        e.target.classList.remove("error");
+    };
+
+    // Verifying form inputs
     const handleSubmit = (e) => {
         e.preventDefault();
-        setShowModal(true);
-    }
 
-    function saveEmployee() {
-        const firstName = document.getElementById("first-name");
-        const lastName = document.getElementById("last-name");
-        const dateOfBirth = document.getElementById("date-of-birth");
-        const startDate = document.getElementById("start-date");
-        const department = document.getElementById("department");
-        const street = document.getElementById("street");
-        const city = document.getElementById("city");
-        const state = document.getElementById("state");
-        const zipCode = document.getElementById("zip-code");
-
-        const employees = JSON.parse(localStorage.getItem("employees")) || [];
-        const employee = {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            dateOfBirth: dateOfBirth.value,
-            startDate: startDate.value,
-            department: department.value,
-            street: street.value,
-            city: city.value,
-            state: state.value,
-            zipCode: zipCode.value,
+        const newEmployee = {
+            firstName: undefined,
+            lastName: undefined,
+            dateOfBirth: undefined,
+            startDate: undefined,
+            street: undefined,
+            city: undefined,
+            state: undefined,
+            zipCode: undefined,
+            department: undefined,
         };
-        employees.push(employee);
-        localStorage.setItem("employees", JSON.stringify(employees));
-    }
+
+        if (inputFirstName.current.value.trim().length > 2) {
+            cancelInputError("firstName");
+            newEmployee.firstName = inputFirstName.current.value;
+        } else {
+            throwInputError(
+                "firstName",
+                "First name must contain at least 3 characters"
+            );
+        }
+        if (inputLastName.current.value.trim().length > 2) {
+            cancelInputError("lastName");
+            newEmployee.lastName = inputLastName.current.value;
+        } else {
+            throwInputError(
+                "lastName",
+                "Last name must contain at least 3 characters"
+            );
+        }
+        if (inputDateOfBirth.current.value) {
+            cancelInputError("dateOfBirth");
+            newEmployee.dateOfBirth = inputDateOfBirth.current.value;
+        } else {
+            throwInputError("dateOfBirth", "err");
+        }
+        if (inputStartDate.current.value) {
+            cancelInputError("startDate");
+            newEmployee.startDate = inputStartDate.current.value;
+        } else {
+            throwInputError("startDate", "err");
+        }
+        if (inputStreet.current.value) {
+            cancelInputError("street");
+            newEmployee.street = inputStreet.current.value;
+        } else {
+            throwInputError("street", "err");
+        }
+        if (inputCity.current.value) {
+            cancelInputError("city");
+            newEmployee.city = inputCity.current.value;
+        } else {
+            throwInputError("city", "err");
+        }
+        if (selectedItemState) {
+            cancelInputError("state");
+            newEmployee.state = selectedItemState;
+        } else {
+            throwInputError("state", "Please select a state");
+        }
+        if (inputZipCode.current.value) {
+            cancelInputError("zipCode");
+            newEmployee.zipCode = inputZipCode.current.value;
+        } else {
+            throwInputError("zipCode", "err");
+        }
+        if (selectedItemDpt) {
+            cancelInputError("department");
+            newEmployee.department = selectedItemDpt;
+        } else {
+            throwInputError("department", "Please select a department");
+        }
+        
+        if (
+            newEmployee.firstName &&
+            newEmployee.lastName &&
+            newEmployee.dateOfBirth &&
+            newEmployee.startDate &&
+            newEmployee.city &&
+            newEmployee.state &&
+            newEmployee.zipCode &&
+            newEmployee.department
+        ) {
+            setEmployeesList([...employeesList, newEmployee]);
+            document.querySelector("#new-employee").reset();
+            setShowModal(true);
+        }
+    };
 
     return (
         <>
@@ -58,49 +172,112 @@ const Index = () => {
             <MainNav />
             <div className="index">
                 <div className="index--container">
-
-                    <form onSubmit={(e) => handleSubmit(e)} id="new-employee">
+                    <form
+                        onSubmit={(e) => handleSubmit(e)}
+                        id="new-employee"
+                        autoComplete="off"
+                    >
                         <div className="new-employee--container">
                             <div className="new-employee--infos">
-                                <label htmlFor="first-name">First Name</label>
-                                <input type="text" id="first-name" />
-                                <label htmlFor="last-name">Last Name</label>
-                                <input type="text" id="last-name" />
-                                <label htmlFor="date-of-birth">Date of Birth</label>
-                                <input id="date-of-birth" type="text" />
-                                <label htmlFor="start-date">Start Date</label>
-                                <input id="start-date" type="text" />
+                                <div className="input-wrapper">
+                                    <label htmlFor="firstName">
+                                        First name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="firstName"
+                                        ref={inputFirstName}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="lastName">Last name</label>
+                                    <input
+                                        type="text"
+                                        id="lastName"
+                                        ref={inputLastName}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="dateOfBirth">
+                                        Date of birth
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="dateOfBirth"
+                                        ref={inputDateOfBirth}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="startDate">
+                                        Start date
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="startDate"
+                                        ref={inputStartDate}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
                             </div>
-                            
+
                             <fieldset className="new-employee--address">
                                 <legend>Address</legend>
-                                <label htmlFor="street">Street</label>
-                                <input id="street" type="text" />
-                                <label htmlFor="city">City</label>
-                                <input id="city" type="text" />
-                                <SelectList
-                                    selectedItem={selectedItemState}
-                                    setSelectedItem={setSelectedItemState}
-                                    options={states}
-                                    label={"Select a state"}
-                                />
-                                <label htmlFor="zip-code">Zip Code</label>
-                                <input id="zip-code" type="number" />
+                                <div className="input-wrapper">
+                                    <label htmlFor="street">Street</label>
+                                    <input
+                                        type="text"
+                                        id="street"
+                                        ref={inputStreet}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="city">City</label>
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        ref={inputCity}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <SelectList
+                                        id="state"
+                                        selectedItem={selectedItemState}
+                                        setSelectedItem={setSelectedItemState}
+                                        options={states}
+                                        label={"Select a state"}
+                                    />
+                                </div>
+                                <div className="input-wrapper">
+                                    <label htmlFor="zipCode">Zip code</label>
+                                    <input
+                                        type="number"
+                                        id="zipCode"
+                                        ref={inputZipCode}
+                                        onChange={(e) => removeError(e)}
+                                    />
+                                </div>
                             </fieldset>
                         </div>
 
                         <div className="new-employee--dpt">
-                            <SelectList
-                                selectedItem={selectedItemDpt}
-                                setSelectedItem={setSelectedItemDpt}
-                                options={department}
-                                label={"Select a department"}
-                            />
+                            <div className="input-wrapper">
+                                <SelectList
+                                    id="department"
+                                    selectedItem={selectedItemDpt}
+                                    setSelectedItem={setSelectedItemDpt}
+                                    options={department}
+                                    label={"Select a department"}
+                                />
+                            </div>
                         </div>
 
                         <button type="submit">Save</button>
                     </form>
-                    
                 </div>
                 <ConfirmationModal
                     showModal={showModal}
