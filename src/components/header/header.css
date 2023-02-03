@@ -11,8 +11,29 @@
     position: relative;
 }
 .header__title{
+    font-size: 22px;
+    border-radius: 5px;
+    padding: 10px;
+    border-bottom: 2px solid #93ad18;
+    color: #577000;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media all and (max-width: 850px) {
+    .header--container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .header__logo img{
+        height: 12vw;
+    }
+
+    .header__title{
+        font-size: 15px;
+        padding-bottom: 5px;
+    }
 }

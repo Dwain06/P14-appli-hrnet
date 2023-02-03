@@ -16,8 +16,8 @@ const Index = () => {
 
     // Components datas
     const [showModal, setShowModal] = useState(false);
-    const [selectedItemState, setSelectedItemState] = useState();
-    const [selectedItemDpt, setSelectedItemDpt] = useState();
+    const [selectedItemState, setSelectedItemState] = useState(undefined);
+    const [selectedItemDpt, setSelectedItemDpt] = useState(undefined);
 
     useEffect(() => {
         document.title = "HRnet";
@@ -89,47 +89,47 @@ const Index = () => {
             department: undefined,
         };
 
-        if (inputFirstName.current.value.trim().length > 2) {
+        if (inputFirstName.current.value.trim().length > 1) {
             cancelInputError("firstName");
             newEmployee.firstName = inputFirstName.current.value;
         } else {
             throwInputError(
                 "firstName",
-                "First name must contain at least 3 characters"
+                "First name must contain at least 2 characters"
             );
         }
-        if (inputLastName.current.value.trim().length > 2) {
+        if (inputLastName.current.value.trim().length > 1) {
             cancelInputError("lastName");
             newEmployee.lastName = inputLastName.current.value;
         } else {
             throwInputError(
                 "lastName",
-                "Last name must contain at least 3 characters"
+                "Last name must contain at least 2 characters"
             );
         }
         if (inputDateOfBirth.current.value) {
             cancelInputError("dateOfBirth");
             newEmployee.dateOfBirth = inputDateOfBirth.current.value;
         } else {
-            throwInputError("dateOfBirth", "err");
+            throwInputError("dateOfBirth", "Employee must have 16+");
         }
         if (inputStartDate.current.value) {
             cancelInputError("startDate");
             newEmployee.startDate = inputStartDate.current.value;
         } else {
-            throwInputError("startDate", "err");
+            throwInputError("startDate", "date must be today or before");
         }
-        if (inputStreet.current.value) {
+        if (inputStreet.current.value.trim().length > 2) {
             cancelInputError("street");
             newEmployee.street = inputStreet.current.value;
         } else {
-            throwInputError("street", "err");
+            throwInputError("street", "Street must contain at least 3 characters");
         }
-        if (inputCity.current.value) {
+        if (inputCity.current.value.trim().length > 2) {
             cancelInputError("city");
             newEmployee.city = inputCity.current.value;
         } else {
-            throwInputError("city", "err");
+            throwInputError("city", "City must contain at least 3 characters");
         }
         if (selectedItemState) {
             cancelInputError("state");
@@ -137,11 +137,11 @@ const Index = () => {
         } else {
             throwInputError("state", "Please select a state");
         }
-        if (inputZipCode.current.value) {
+        if (inputZipCode.current.value.length === 5 && inputZipCode.current.value.length > 0) {
             cancelInputError("zipCode");
             newEmployee.zipCode = inputZipCode.current.value;
         } else {
-            throwInputError("zipCode", "err");
+            throwInputError("zipCode", "Please enter a 5 digit number");
         }
         if (selectedItemDpt) {
             cancelInputError("department");
@@ -149,7 +149,7 @@ const Index = () => {
         } else {
             throwInputError("department", "Please select a department");
         }
-        
+
         if (
             newEmployee.firstName &&
             newEmployee.lastName &&

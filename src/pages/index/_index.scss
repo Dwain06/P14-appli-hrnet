@@ -48,7 +48,7 @@ label {
 }
 
 .new-employee--infos {
-    max-width: 500px;
+    max-width: 450px;
     padding: 1.5vw;
 
     input, label {
@@ -102,4 +102,30 @@ button[type=submit] {
 
 .error {
     color: red;
+}
+
+@media all and (max-width: 850px) {
+    .index {
+        font-size: 13px;
+    }
+    select {
+        font-size: 13px !important;
+    }
+    .index--container {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-bottom: 40px;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .new-employee--container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .new-employee--infos {
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
