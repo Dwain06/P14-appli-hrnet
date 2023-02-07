@@ -188,6 +188,7 @@ const Index = () => {
                                         id="firstName"
                                         ref={inputFirstName}
                                         onChange={(e) => removeError(e)}
+                                        autoComplete="no"
                                     />
                                 </div>
                                 <div className="input-wrapper">
@@ -197,6 +198,7 @@ const Index = () => {
                                         id="lastName"
                                         ref={inputLastName}
                                         onChange={(e) => removeError(e)}
+                                        autoComplete="no"
                                     />
                                 </div>
                                 <div className="input-wrapper">
@@ -232,6 +234,7 @@ const Index = () => {
                                         id="street"
                                         ref={inputStreet}
                                         onChange={(e) => removeError(e)}
+                                        autoComplete="no"
                                     />
                                 </div>
                                 <div className="input-wrapper">
@@ -241,6 +244,7 @@ const Index = () => {
                                         id="city"
                                         ref={inputCity}
                                         onChange={(e) => removeError(e)}
+                                        autoComplete="no"
                                     />
                                 </div>
                                 <div className="input-wrapper">
@@ -259,6 +263,7 @@ const Index = () => {
                                         id="zipCode"
                                         ref={inputZipCode}
                                         onChange={(e) => removeError(e)}
+                                        autoComplete="no"
                                     />
                                 </div>
                             </fieldset>
@@ -284,7 +289,9 @@ const Index = () => {
                     setShowModal={setShowModal}
                     textContent="Employee created!"
                     btnContent="Done"
-                    clickClose={false}
+                    clickClose={true}
+                    escapeClose={true}
+                    colorModal="grey"
                 />
             </div>
         </>

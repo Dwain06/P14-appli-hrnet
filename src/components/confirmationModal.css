@@ -14,7 +14,7 @@
 
 .confirmation-modal__msg {
     padding: 20px 150px 20px 100px;
-    background: grey;
+    /* background: grey; */
     position: relative;
     display: flex;
     justify-content: center;

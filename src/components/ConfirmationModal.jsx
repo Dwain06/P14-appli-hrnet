@@ -10,8 +10,10 @@ const ConfirmationModal = ({
     fadeinDelay = 0,
     fadeoutDuration = 200,
     fadeoutDelay = 0,
-    escapeClose= true,
-    clickClose= true
+    escapeClose = false,
+    clickClose = false,
+    colorModal = "grey",
+    colorTxtModal = ""
 }) => {
     const [fadeAnimation, setFadeAnimation] = useState(true);
 
@@ -53,7 +55,7 @@ const ConfirmationModal = ({
                         : confirmationModalFadeout
                 }
             >
-                <div className="confirmation-modal__msg">
+                <div className="confirmation-modal__msg" style={{background: colorModal, color: colorTxtModal}}>
                     <p>{textContent}</p>
                     <button
                         className="confirmation-modal__msg--close"
