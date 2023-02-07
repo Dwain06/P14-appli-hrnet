@@ -10,6 +10,9 @@ import { states } from "../../utils/statesList";
 import { department } from "../../utils/departmentList";
 import Header from "../../components/header/Header";
 
+// Import packages
+import DatePicker from "react-date-picker";
+
 const Index = () => {
     // General datas
     const [employeesList, setEmployeesList] = useState();
@@ -18,6 +21,8 @@ const Index = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedItemState, setSelectedItemState] = useState(undefined);
     const [selectedItemDpt, setSelectedItemDpt] = useState(undefined);
+    const [dateOfBirth, setDateOfBirth] = useState(new Date(2000, 0, 1));
+    const [startDate, setStartDate] = useState(new Date());
 
     useEffect(() => {
         document.title = "HRnet";
@@ -39,8 +44,8 @@ const Index = () => {
 
     const inputFirstName = useRef();
     const inputLastName = useRef();
-    const inputDateOfBirth = useRef();
-    const inputStartDate = useRef();
+    // const inputDateOfBirth = useRef();
+    // const inputStartDate = useRef();
     const inputStreet = useRef();
     const inputCity = useRef();
     const inputZipCode = useRef();
@@ -107,15 +112,16 @@ const Index = () => {
                 "Last name must contain at least 2 characters"
             );
         }
-        if (inputDateOfBirth.current.value) {
+        if (dateOfBirth) {
             cancelInputError("dateOfBirth");
-            newEmployee.dateOfBirth = inputDateOfBirth.current.value;
+            newEmployee.dateOfBirth = dateOfBirth;
         } else {
             throwInputError("dateOfBirth", "Employee must have 16+");
         }
-        if (inputStartDate.current.value) {
+        if (startDate) {
+            console.log(startDate)
             cancelInputError("startDate");
-            newEmployee.startDate = inputStartDate.current.value;
+            newEmployee.startDate = startDate;
         } else {
             throwInputError("startDate", "date must be today or before");
         }
@@ -205,23 +211,37 @@ const Index = () => {
                                     <label htmlFor="dateOfBirth">
                                         Date of birth
                                     </label>
-                                    <input
+                                    <DatePicker
+                                        onChange={setDateOfBirth}
+                                        value={dateOfBirth}
+                                        maxDate={new Date()}
+                                        locale="en-US"
+                                        format="MM/dd/y"
+                                    />
+                                    {/* <input
                                         type="text"
                                         id="dateOfBirth"
                                         ref={inputDateOfBirth}
                                         onChange={(e) => removeError(e)}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className="input-wrapper">
                                     <label htmlFor="startDate">
                                         Start date
                                     </label>
-                                    <input
+                                    <DatePicker
+                                        onChange={setStartDate}
+                                        value={startDate}
+                                        maxDate={new Date()}
+                                        locale="en-US"
+                                        format="MM/dd/y"
+                                    />
+                                    {/* <input
                                         type="text"
                                         id="startDate"
                                         ref={inputStartDate}
                                         onChange={(e) => removeError(e)}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
 

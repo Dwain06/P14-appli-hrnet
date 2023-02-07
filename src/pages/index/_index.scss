@@ -52,7 +52,7 @@ label {
     padding: 1.5vw;
 
     input, label {
-        width: 100%;
+        width: 98%;
     }
 }
 
@@ -86,7 +86,6 @@ button[type=submit] {
     }
 }
 
-
 .input-wrapper {
     position: relative;
 }
@@ -103,6 +102,32 @@ button[type=submit] {
 .error {
     color: red;
 }
+
+// React date picker lib
+.react-date-picker {
+    width: 100%;
+    
+}
+.react-date-picker__wrapper {
+    border-radius: 5px;
+    padding: 3px 3px 3px 62px;
+    border: 1px solid rgb(201, 201, 201);
+    border-bottom: 5px solid $color-primary-dark;
+    font-size: 18px;
+    
+}
+.react-date-picker__inputGroup__input {
+    transition: none;
+    &:focus {
+        border-bottom: 2px solid $color-primary-light;
+        transition: none;
+    }
+}
+.react-calendar__tile--active{
+    background: $color-primary-dark;
+
+}
+
 
 @media all and (max-width: 850px) {
     .index {
