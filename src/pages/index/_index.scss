@@ -114,7 +114,11 @@ button[type=submit] {
     border: 1px solid rgb(201, 201, 201);
     border-bottom: 5px solid $color-primary-dark;
     font-size: 18px;
-    
+    transition: .5s;
+    &:focus-within {
+        border-bottom: 5px solid $color-primary-light;
+        transition: .5s;
+    }
 }
 .react-date-picker__inputGroup__input {
     transition: none;
