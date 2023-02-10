@@ -1,12 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 // Import pages
 import Index from './pages/index/Index';
 import Employees from './pages/employees/Employees';
+import { EmployeesContext } from './context/employeesContext';
+import { getEmployees, saveEmployees } from './utils/manageEmployees';
+
 
 
 const App = () => {
+
+  const { employeesList, dispatch } = useContext(EmployeesContext);
+  useEffect(() => dispatch(getEmployees()), []);
+  useEffect(() => saveEmployees(employeesList), [employeesList]);
 
   return (
     <BrowserRouter>
