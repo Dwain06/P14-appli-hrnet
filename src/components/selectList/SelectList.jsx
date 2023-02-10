@@ -8,6 +8,7 @@ const SelectList = ({
     setSelectedItem,
     listName = "list",
     label = "Select an option",
+    returnValue = true,
     options = [
         {
             "name": "Option 1",
@@ -30,7 +31,7 @@ const SelectList = ({
             <select name={listName} className="select-list" id={id} onChange={handleChange}>
                 <option className="select-options" value="undefined">Please select an option...</option>
                 {typeof options[0] === "object" && options.map((option, index) => (
-                    <option className="select-options" value={option.value} key={index}>{option.name}</option>
+                    <option className="select-options" value={returnValue? option.value : option.name} key={index}>{option.name}</option>
                 ))}
                 {typeof options[0] === "string" && options.map((option, index) => (
                     <option className="select-options" value={option} key={index}>{option}</option>
