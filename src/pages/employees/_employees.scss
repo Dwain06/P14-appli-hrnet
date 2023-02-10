@@ -1,6 +1,7 @@
 .employees-list {
     background: rgb(240, 240, 240);
-    margin-top: -16px;
+    position: relative;
+    z-index: 1;
 }
 
 .employees-list--container {
@@ -9,17 +10,20 @@
     padding-right: 100px;
     margin: auto;
 }
-.employees-list--container p {
+.employees-list--table {
     background: #fff;
     padding: 20px;
     border-radius: 0 15px 15px 15px;
     text-align: center;
 }
 
+.css-1mbunh-MuiPaper-root {
+    box-shadow: none !important;
+}
+
 @media all and (max-width: 850px) {
     .employees-list {
         font-size: 13px;
-        margin-top: -13px;
     }
     .employees-list--container {
         padding-left: 20px;
