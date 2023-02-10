@@ -1,5 +1,7 @@
 .index {
     background: rgb(240, 240, 240);
+    position: relative;
+    z-index: 1;
 }
 
 .index--container {
@@ -129,7 +131,16 @@ button[type=submit] {
 }
 .react-calendar__tile--active{
     background: $color-primary-dark;
-
+}
+.react-date-picker__calendar {
+    max-width: 100%;
+    width: 100%;
+}
+.react-calendar {
+    margin: auto;
+}
+.react-calendar__tile--active:hover{
+    background: $color-primary-light !important;
 }
 
 
@@ -157,4 +168,7 @@ button[type=submit] {
         padding-left: 20px;
         padding-right: 20px;
     }
+    // .react-date-picker__calendar {
+    //     max-width: 100%;
+    // }
 }

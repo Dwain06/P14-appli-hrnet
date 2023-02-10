@@ -1,21 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import ConfirmationModal from "../../components/ConfirmationModal";
+// General imports
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 // Import components
+import Header from "../../components/header/Header";
 import MainNav from "../../components/mainNav/MainNav";
 import SelectList from "../../components/selectList/SelectList";
 
-//Import lists
+//Import datas
 import { states } from "../../utils/statesList";
 import { department } from "../../utils/departmentList";
-import Header from "../../components/header/Header";
+import { EmployeesContext } from "../../context/employeesContext";
+
+//Import functions
+import { calculateAge, cancelInputError, removeError, throwInputError } from "../../utils/formErrors"
 
 // Import packages
 import DatePicker from "react-date-picker";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 const Index = () => {
     // General datas
-    const [employeesList, setEmployeesList] = useState();
+    const { dispatch, employeesList } = useContext(EmployeesContext);
 
     // Components datas
     const [showModal, setShowModal] = useState(false);
@@ -25,59 +30,17 @@ const Index = () => {
     const [startDate, setStartDate] = useState(new Date());
 
     useEffect(() => {
-        document.title = "HRnet";
-
-        // Get employees from local storage, it could be configured for a future API development
-        const getEmployees = () => {
-            if (localStorage.getItem("employees")) {
-                setEmployeesList(JSON.parse(localStorage.getItem("employees")));
-            } else setEmployeesList([]);
-        };
-        getEmployees();
+        document.title = "HRnet - New employee";
     }, []);
-
-    useEffect(() => {
-        // Save store on local storage, it could be PUT in a future API development
-        if (employeesList)
-            localStorage.setItem("employees", JSON.stringify(employeesList));
-    }, [employeesList]);
 
     const inputFirstName = useRef();
     const inputLastName = useRef();
-    // const inputDateOfBirth = useRef();
-    // const inputStartDate = useRef();
     const inputStreet = useRef();
     const inputCity = useRef();
     const inputZipCode = useRef();
 
-    const throwInputError = (parentNodeId, message) => {
-        // Checking if error already exist
-        if (document.querySelector("#" + parentNodeId + " + .wrong-login")) {
-            const span = document.querySelector(
-                "#" + parentNodeId + " + .wrong-login"
-            );
-            span.innerText = message;
-        } else {
-            const span = document.createElement("span");
-            span.classList.add("wrong-login");
-            span.innerText = message;
-            const parentNode = document.getElementById(parentNodeId);
-            parentNode.insertAdjacentElement("afterend", span);
-        }
-        document.querySelector("input#" + parentNodeId)?.classList.add("error");
-    };
 
-    const cancelInputError = (parentNodeId) => {
-        const span = document.querySelector(
-            "#" + parentNodeId + " + .wrong-login"
-        );
-        if (span) span.innerText = "";
-    };
-
-    const removeError = (e) => {
-        e.target.classList.remove("error");
-    };
-
+    
     // Verifying form inputs
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -92,6 +55,7 @@ const Index = () => {
             state: undefined,
             zipCode: undefined,
             department: undefined,
+            id: undefined
         };
 
         if (inputFirstName.current.value.trim().length > 1) {
@@ -112,16 +76,15 @@ const Index = () => {
                 "Last name must contain at least 2 characters"
             );
         }
-        if (dateOfBirth) {
+        if (dateOfBirth && calculateAge(dateOfBirth) > 15) {
             cancelInputError("dateOfBirth");
-            newEmployee.dateOfBirth = dateOfBirth;
+            newEmployee.dateOfBirth = new Date(dateOfBirth.getTime() - ((dateOfBirth.getTimezoneOffset())*60*1000)).toISOString().split('T')[0];
         } else {
             throwInputError("dateOfBirth", "Employee must have 16+");
         }
         if (startDate) {
-            console.log(startDate)
             cancelInputError("startDate");
-            newEmployee.startDate = startDate;
+            newEmployee.startDate = new Date(startDate.getTime() - ((startDate.getTimezoneOffset())*60*1000)).toISOString().split('T')[0];
         } else {
             throwInputError("startDate", "date must be today or before");
         }
@@ -166,8 +129,11 @@ const Index = () => {
             newEmployee.zipCode &&
             newEmployee.department
         ) {
-            setEmployeesList([...employeesList, newEmployee]);
+            newEmployee.id = new Date().valueOf();
+            dispatch({ type: "NEW_EMPLOYEE", payload: newEmployee });
             document.querySelector("#new-employee").reset();
+            setDateOfBirth(new Date(2000, 0, 1));
+            setStartDate(new Date());
             setShowModal(true);
         }
     };
@@ -208,40 +174,28 @@ const Index = () => {
                                     />
                                 </div>
                                 <div className="input-wrapper">
-                                    <label htmlFor="dateOfBirth">
+                                    <label htmlFor="dateOfBirth" id="dateOfBirth">
                                         Date of birth
                                     </label>
                                     <DatePicker
+                                        
                                         onChange={setDateOfBirth}
                                         value={dateOfBirth}
                                         maxDate={new Date()}
-                                        locale="en-US"
-                                        format="MM/dd/y"
+                                        format="y-MM-dd"
                                     />
-                                    {/* <input
-                                        type="text"
-                                        id="dateOfBirth"
-                                        ref={inputDateOfBirth}
-                                        onChange={(e) => removeError(e)}
-                                    /> */}
                                 </div>
                                 <div className="input-wrapper">
                                     <label htmlFor="startDate">
                                         Start date
                                     </label>
                                     <DatePicker
+                                        id="testest"
                                         onChange={setStartDate}
                                         value={startDate}
                                         maxDate={new Date()}
-                                        locale="en-US"
-                                        format="MM/dd/y"
+                                        format="y-MM-dd"
                                     />
-                                    {/* <input
-                                        type="text"
-                                        id="startDate"
-                                        ref={inputStartDate}
-                                        onChange={(e) => removeError(e)}
-                                    /> */}
                                 </div>
                             </div>
 
