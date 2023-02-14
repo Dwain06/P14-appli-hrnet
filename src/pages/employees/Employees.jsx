@@ -55,6 +55,7 @@ const Login = () => {
                                         }, 1000);
                                     }),
                             }}
+                            localization={{ body: { editRow: { deleteText: "Are you sure you want to delete this user?" } } }}
                         />
                     </div>
                 </div>
