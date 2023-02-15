@@ -3,8 +3,8 @@ import { employeesListDefault } from "./employeesListDefault";
 // Get employees from local storage, it could be configured for a future API development
 export const getEmployees = () => {
     if (localStorage.getItem("employees")) {
-        const employeesListLS = JSON.parse(localStorage.getItem("employees"));
-        return({ type: "SET_EMPLOYEES", payload: employeesListLS });
+        const employeesListLocalStorage = JSON.parse(localStorage.getItem("employees"));
+        return({ type: "SET_EMPLOYEES", payload: employeesListLocalStorage });
     } else return({ type: "SET_EMPLOYEES", payload: employeesListDefault });
 };
 

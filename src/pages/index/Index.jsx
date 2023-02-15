@@ -6,6 +6,7 @@ import Header from "../../components/header/Header";
 import MainNav from "../../components/mainNav/MainNav";
 import SelectList from "../../components/selectList/SelectList";
 
+
 //Import datas
 import { states } from "../../utils/statesList";
 import { department } from "../../utils/departmentList";
@@ -16,11 +17,11 @@ import { calculateAge, cancelInputError, removeError, throwInputError } from "..
 
 // Import packages
 import DatePicker from "react-date-picker";
-import ConfirmationModal from "../../components/ConfirmationModal";
+import { ConfirmationModal } from "confirmation-modal-lib";
 
 const Index = () => {
     // General datas
-    const { dispatch, employeesList } = useContext(EmployeesContext);
+    const { dispatch } = useContext(EmployeesContext);
 
     // Components datas
     const [showModal, setShowModal] = useState(false);
