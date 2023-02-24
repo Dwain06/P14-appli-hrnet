@@ -159,6 +159,7 @@ const Index = () => {
                                     <input
                                         type="text"
                                         id="firstName"
+                                        data-testid="firstName"
                                         ref={inputFirstName}
                                         onChange={(e) => removeError(e)}
                                         autoComplete="no"
@@ -229,6 +230,7 @@ const Index = () => {
                                         setSelectedItem={setSelectedItemState}
                                         options={states}
                                         label={"Select a state"}
+                                        listName="state"
                                     />
                                 </div>
                                 <div className="input-wrapper">
@@ -252,6 +254,7 @@ const Index = () => {
                                     setSelectedItem={setSelectedItemDpt}
                                     options={department}
                                     label={"Select a department"}
+                                    listName="department"
                                 />
                             </div>
                         </div>

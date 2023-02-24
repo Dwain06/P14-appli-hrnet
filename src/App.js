@@ -12,7 +12,7 @@ import { getEmployees, saveEmployees } from './utils/manageEmployees';
 const App = () => {
 
   const { employeesList, dispatch } = useContext(EmployeesContext);
-  useEffect(() => dispatch(getEmployees()), [dispatch]);
+  useEffect(() => dispatch(getEmployees()), []);
   useEffect(() => saveEmployees(employeesList), [employeesList]);
 
   return (

@@ -22,7 +22,7 @@ const columns = [
     { title: "Department", field: "department" },
 ];
 
-const Login = () => {
+const Employees = () => {
     const { dispatch, employeesList } = useContext(EmployeesContext);
 
     useEffect(() => {
@@ -64,4 +64,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Employees;

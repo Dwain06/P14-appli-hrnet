@@ -10,10 +10,10 @@ const MainNav = () => {
         <>
             <nav className="main-nav">
                 <div className="main-nav--container">
-                    <NavLink end className={(nav) => (nav.isActive ? "main-nav-item nav-active" : "main-nav-item")} to="/">
+                    <NavLink data-testid="index" end className={(nav) => (nav.isActive ? "main-nav-item nav-active" : "main-nav-item")} to="/">
                         New employee
                     </NavLink>
-                    <NavLink className={(nav) => (nav.isActive ? "main-nav-item nav-active" : "main-nav-item")} to="/employees">
+                    <NavLink data-testid="employees" className={(nav) => (nav.isActive ? "main-nav-item nav-active" : "main-nav-item")} to="/employees">
                         Current employees
                     </NavLink>
                 </div>
