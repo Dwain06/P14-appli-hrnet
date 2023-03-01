@@ -15,10 +15,10 @@
     padding: 20px;
     border-radius: 0 15px 15px 15px;
     text-align: center;
-}
 
-.css-1mbunh-MuiPaper-root {
-    box-shadow: none !important;
+    & div:first-child{
+        box-shadow: none !important;
+    }
 }
 
 @media all and (max-width: 850px) {
