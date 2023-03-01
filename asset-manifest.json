@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/p14-appli-hrnet/static/css/main.3f067b6c.css",
-    "main.js": "/p14-appli-hrnet/static/js/main.3374a8fb.js",
-    "static/media/logo.jpg": "/p14-appli-hrnet/static/media/logo.58e90ba01514c173651f.jpg",
-    "index.html": "/p14-appli-hrnet/index.html"
+    "main.css": "/P14-appli-hrnet/static/css/main.3f067b6c.css",
+    "main.js": "/P14-appli-hrnet/static/js/main.64fe7a97.js",
+    "static/media/logo.jpg": "/P14-appli-hrnet/static/media/logo.58e90ba01514c173651f.jpg",
+    "index.html": "/P14-appli-hrnet/index.html"
   },
   "entrypoints": [
     "static/css/main.3f067b6c.css",
-    "static/js/main.3374a8fb.js"
+    "static/js/main.64fe7a97.js"
   ]
 }
